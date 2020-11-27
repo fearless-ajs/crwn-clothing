@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
@@ -30,4 +31,11 @@ const Header = ({currentUser}) => (
   </div>
 );
 
-export default Header;
+// Get user state from the root reducer
+//To be used anywhere we need properties from our reducer
+const mapStateToProps = state => ({
+   currentUser: state.user.currentUser
+});
+
+//connect is a higher order component
+export default connect(mapStateToProps)(Header);
