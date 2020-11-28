@@ -6,8 +6,10 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import './header.styles.scss';
 import {auth} from "../../firebase/firebase.utils";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropDown from "../cart-dropdown/cart-dropdown.component";
 
-const Header = ({currentUser}) => (
+const Header = ({ currentUser, hidden }) => (
   <div className='header'>
       <Link className='logo-container' to='/' >
           <Logo className='logo'/>
@@ -27,14 +29,21 @@ const Header = ({currentUser}) => (
               )
 
           }
+          <CartIcon />
       </div>
+      {
+          hidden ? null :
+              <CartDropDown />
+      }
+
   </div>
 );
 
-// Get user state from the root reducer
+// Get user and cart state from the root reducer
 //To be used anywhere we need properties from our reducer
-const mapStateToProps = state => ({
-   currentUser: state.user.currentUser
+const mapStateToProps = ({user: { currentUser }, cart: { hidden } }) => ({
+   currentUser,
+   hidden
 });
 
 //connect is a higher order component
