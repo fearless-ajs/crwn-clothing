@@ -20,3 +20,26 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
     //If block won't run when it's a new item
     return [...cartItems, {...cartItemToAdd, quantity: 1}]
 };
+
+export const removeItemFromCart =  (cartItems, cartItemToRemove) => {
+    //Check if the item exists in the list
+    const existingCartItem = cartItems.find(
+        cartItem => cartItem.id === cartItemToRemove.id
+    )
+
+    //Then check if quantity is equal to 1, if yes remove the entire item instead
+    // of decreasing the value of quantity to zero
+    if(existingCartItem.quantity === 1){
+        //Using the filter() to remove the item
+        return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
+    }
+    //Else reduce the value of quantity of the item
+    return cartItems.map(cartItem =>
+        //Check from the cartItems list where an item id matches our target
+        //Then reduce its quantity
+        cartItem.id === cartItemToRemove.id
+            ? {...cartItem, quantity: cartItem.quantity - 1}
+            : cartItem
+    )
+
+}
