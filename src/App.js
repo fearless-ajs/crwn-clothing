@@ -10,7 +10,7 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {auth, createUserProfileDocument} from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 
@@ -37,6 +37,10 @@ class App extends React.Component {
 
            } else {
               setCurrentUser(userAuth);
+               //Because we only want to upload title and items from our SHOP_DATA objects
+               //We'll use map to generate a new array selecting just the title and items and
+               // await addCollectionAndDocuments('collections', collectionArray);
+               // await addCollectionAndDocuments('collections', collectionArray.map(({title, items}) => ({title, items})));
            }
 
         });
